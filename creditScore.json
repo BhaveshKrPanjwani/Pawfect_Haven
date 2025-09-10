@@ -1,0 +1,35 @@
+[
+    {
+      "id": 1,
+      "name": "Happy Paws Pet Store",
+      "type": "Pet Store",
+      "image": "/util/926b252700f941ae9cd0378826456656.jpg",
+      "score": 92,
+      "certified": true
+    },
+    {
+      "id": 2,
+      "name": "Greenfield Farm",
+      "type": "Farm",
+      "image": "/util/926b252700f941ae9cd0378826456656.jpg",
+      "score": 78,
+      "certified": false
+    },
+    {
+      "id": 3,
+      "name": "Oceanview Zoo",
+      "type": "Zoo",
+      "image": "/util/926b252700f941ae9cd0378826456656.jpg",
+      "score": 85,
+      "certified": true
+    },
+    {
+      "id": 4,
+      "name": "Sunshine Restaurant",
+      "type": "Restaurant",
+      "image": "/util/926b252700f941ae9cd0378826456656.jpg",
+      "score": 65,
+      "certified": false
+    }
+  ]
+  
