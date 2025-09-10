@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/Pawfect_Haven/static/css/main.63a00da7.css",
-    "main.js": "/Pawfect_Haven/static/js/main.03aa1499.js",
+    "main.js": "/Pawfect_Haven/static/js/main.2611c568.js",
     "static/js/453.07b51e5c.chunk.js": "/Pawfect_Haven/static/js/453.07b51e5c.chunk.js",
     "static/media/1200x0.jpg": "/Pawfect_Haven/static/media/1200x0.4f0b6306308ea75fdd86.jpg",
     "index.html": "/Pawfect_Haven/index.html",
     "main.63a00da7.css.map": "/Pawfect_Haven/static/css/main.63a00da7.css.map",
-    "main.03aa1499.js.map": "/Pawfect_Haven/static/js/main.03aa1499.js.map",
+    "main.2611c568.js.map": "/Pawfect_Haven/static/js/main.2611c568.js.map",
     "453.07b51e5c.chunk.js.map": "/Pawfect_Haven/static/js/453.07b51e5c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.63a00da7.css",
-    "static/js/main.03aa1499.js"
+    "static/js/main.2611c568.js"
   ]
 }
