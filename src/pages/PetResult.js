@@ -9,7 +9,7 @@ const PetResults = () => {
   const userLocation = queryParams.get("location");
 
   useEffect(() => {
-    fetch(`http://localhost:5000/pets?type=${petType}&location=${userLocation}`)
+    fetch(`http://localhost:5000/api/pets?type=${petType}&location=${userLocation}`)
       .then((res) => res.json())
       .then((data) => setPets(data))
       .catch((err) => console.error("Error fetching pets:", err));

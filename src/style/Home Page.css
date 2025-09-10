@@ -62,7 +62,7 @@ header {
 
 /* Hero Section */
 .hero {
-    background: url('../utils/1200x0.jpg');
+    background: url('../../public/util/1200x0.jpg');
     background-repeat:  no-repeat;
     background-position: center ;
     background-position: top center;
@@ -148,7 +148,7 @@ header {
     margin-top: 20px;
 }
 .left{
-    background: url('../utils/9b52f8ab775cf86eb51f1446f34e14da.jpg');
+    background: url('../../public/util/9b52f8ab775cf86eb51f1446f34e14da.jpg');
     height: 40vh;
     background-size: contain;
     background-repeat: no-repeat;

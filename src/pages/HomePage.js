@@ -1,32 +1,39 @@
-import React from "react";
-import { Link } from "react-router-dom";
+// src/pages/HomePage.jsx
+import React, { useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../style/style.css";
 
-import {useNavigate } from "react-router-dom";
-
 const HomePage = () => {
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
+
+  const aboutUsRef = useRef(null);
+  const whyStartedRef = useRef(null);
 
   const handleSupportChange = (event) => {
     const selectedValue = event.target.value;
     if (selectedValue === "adopt") {
-      navigate("/pets"); // Redirect to Pet Listings Page
-    }
-    if (selectedValue === "schedule") {
+      navigate("/pets");
+    } else if (selectedValue === "schedule") {
       navigate("/pet-schedule");
-    }
-    if (selectedValue === "scores") {
+    } else if (selectedValue === "scores") {
       navigate("/credit-score");
+    } else if (selectedValue === "donate") {
+      navigate("/donations");
+    } else if (selectedValue === "story") {
+      navigate("/stories");
     }
   };
+
+  const scrollToSection = (ref) => {
+    ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <div className="home-page_body">
       <header>
         <nav className="navbar">
           <div className="logo-img">
-            <img src={process.env.PUBLIC_URL+"/util/logo.jpeg"}
-              alt="Pawfect Haven Logo"
-            />
+            <img src={process.env.PUBLIC_URL + "/util/logo.jpeg"} alt="Pawfect Haven Logo" />
           </div>
           <div className="logo">
             <h1>Pawfect Haven</h1>
@@ -37,36 +44,31 @@ const HomePage = () => {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/about">About Us</Link>
+                <a href="#about-us-section" onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(aboutUsRef);
+                }}>About Us</a>
               </li>
 
-              {/* Dropdown */}
               <li>
-              <select
+                <select
                   id="support"
                   name="support"
                   className="dropdown"
                   onChange={handleSupportChange}
+                  defaultValue=""
                 >
                   <option value="" disabled hidden>
                     How can you Support?
                   </option>
                   <option value="donate">Donate</option>
                   <option value="adopt">Adopt a pet</option>
-                  <option value="schedule">Pet Care Scheduling</option>
-                  <option value="scores">Ethical Score for Buisness</option>
-                  
-                  <option value="story">Share your story</option>
-                  <option value="volunteer">Volunteer</option>
-                  
+                  <option value="story">Share your story / View Stories</option>
                 </select>
               </li>
 
               <li>
-              <Link to="/sell-pet">Sell a Pet</Link>
-              </li>
-              <li>
-                <Link to="/contact">Contact Us</Link>
+                <Link to="/sell-pet">Sell a Pet</Link>
               </li>
               <li>
                 <Link to="/login">Login</Link>
@@ -84,7 +86,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section className="about-us">
+      <section ref={aboutUsRef} id="about-us-section" className="about-us">
         <div className="about-us-txt">
           <p className="h1-txt">About Us</p>
           <p>
@@ -99,12 +101,12 @@ const HomePage = () => {
           <div className="our-mission-img">
             <img
               className="mission-img"
-              src={process.env.PUBLIC_URL+"/util/rescue-a-baby-birds.jpg"}
+              src={process.env.PUBLIC_URL + "/util/rescue-a-baby-birds.jpg"}
               alt="Rescue a baby bird"
             />
             <img
               className="mission-img"
-              src={process.env.PUBLIC_URL+"/util/why-is-my-dog-crying.jpg"}
+              src={process.env.PUBLIC_URL + "/util/why-is-my-dog-crying.jpg"}
               alt="Why is my dog crying"
             />
           </div>
@@ -118,11 +120,10 @@ const HomePage = () => {
             </p>
           </div>
         </div>
-        <div className="why-started">
+        <div ref={whyStartedRef} id="why-started-section" className="why-started">
           <div className="mission-txt">
             <p className="h1-txt">Why We Started</p>
             <p>
-              {" "}
               Pawfect Haven was born out of a deep concern for the welfare of
               animals in our community. Witnessing the struggles of stray and
               abandoned animals inspired us to take action. Though we are just
@@ -133,12 +134,12 @@ const HomePage = () => {
           <div className="started-img">
             <img
               className="mission-img"
-              src={process.env.PUBLIC_URL+"/util/starved-dog-1.jpg"}
+              src={process.env.PUBLIC_URL + "/util/starved-dog-1.jpg"}
               alt="Starved dog"
             />
             <img
               className="mission-img"
-              src={process.env.PUBLIC_URL+"/util/crying-cow.jpeg"}
+              src={process.env.PUBLIC_URL + "/util/crying-cow.jpeg"}
               alt="Crying cow"
             />
           </div>
@@ -151,7 +152,7 @@ const HomePage = () => {
           <button className="donate-button" onClick={() => navigate("/donations")}>Donate Now</button>
         </div>
         <div className="donation-image">
-          <img src={process.env.PUBLIC_URL+"/util/mi_355_Donate_1352902479_1547.png"} alt="Donation " />
+          <img src={process.env.PUBLIC_URL + "/util/mi_355_Donate_1352902479_1547.png"} alt="Donation " />
         </div>
       </section>
 
@@ -163,16 +164,18 @@ const HomePage = () => {
           <div className="content">
             <div className="pet">
               <img
-                src={process.env.PUBLIC_URL+"/util/9b52f8ab775cf86eb51f1446f34e14da.jpg"}
-                alt="Pet 1"
+                src={process.env.PUBLIC_URL + "/util/9b52f8ab775cf86eb51f1446f34e14da.jpg"}
+                alt="Buddy the dog" // More descriptive alt text
               />
               <p>Meet Buddy, a playful and loving dog ready for adoption!</p>
-              <button className="cta-button">Adopt Buddy</button>
+              {/* IMPORTANT: Replace 'buddy_actual_id' with Buddy's real ID from your database */}
+              <button className="cta-button" onClick={() => navigate("/adopt/buddy_actual_id")}>Adopt Buddy</button>
             </div>
             <div className="pet">
-              <img src={process.env.PUBLIC_URL+"/util/maxresdefault.jpg"} alt="Pet 2" />
+              <img src={process.env.PUBLIC_URL + "/util/maxresdefault.jpg"} alt="Bella the cat" /> {/* More descriptive alt text */}
               <p>Meet Bella, a sweet cat looking for her forever home.</p>
-              <button className="cta-button">Adopt Bella</button>
+              {/* IMPORTANT: Replace 'bella_actual_id' with Bella's real ID from your database */}
+              <button className="cta-button" onClick={() => navigate("/adopt/bella_actual_id")}>Adopt Bella</button>
             </div>
           </div>
         </div>
@@ -187,7 +190,7 @@ const HomePage = () => {
           <div className="story-section">
             <div className="help-option">
               <img
-                src={process.env.PUBLIC_URL+"/util/story1.jpg"}
+                src={process.env.PUBLIC_URL + "/util/story1.jpg"}
                 alt="A happy dog with its new owner"
               />
               <p>
@@ -198,7 +201,7 @@ const HomePage = () => {
             </div>
             <div className="help-option">
               <img
-                src={process.env.PUBLIC_URL+"/util/himali-1200x550.jpg"}
+                src={process.env.PUBLIC_URL + "/util/himali-1200x550.jpg"}
                 alt="A cat lounging in its new home"
               />
               <p>
@@ -209,7 +212,7 @@ const HomePage = () => {
             </div>
             <div className="help-option">
               <img
-                src={process.env.PUBLIC_URL+"/util/story3.webp"}
+                src={process.env.PUBLIC_URL + "/util/story3.webp"}
                 alt="A dog enjoying playtime in its new backyard"
               />
               <p>
@@ -231,13 +234,16 @@ const HomePage = () => {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/mission">Our Mission</Link>
+                <a href="#about-us-section" onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(aboutUsRef);
+                }}>Our Mission</a>
               </li>
               <li>
-                <Link to="/why-started">Why We Started</Link>
-              </li>
-              <li>
-                <Link to="/contact">Contact Us</Link>
+                <a href="#why-started-section" onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(whyStartedRef);
+                }}>Why We Started</a>
               </li>
             </ul>
           </div>

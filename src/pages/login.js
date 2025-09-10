@@ -1,31 +1,49 @@
-import React from "react";
-import { Link } from "react-router-dom";
+// src/pages/Login.js
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from '../context/AuthContext'; // Import useAuth
 
 const Login = () => {
-  function validateLogin(event) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const { login } = useAuth(); // Get the login function from context
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    let x = document.forms["loginForm"]["fname"].value;
-    let y = document.forms["loginForm"]["pass"].value;
+    setError(""); // Clear previous errors
 
-    if (x === "") {
-      alert("Username is empty!!!");
-      return false;
+    // Client-side validation
+    if (!email || !password) {
+      setError("Email and password must be filled out");
+      return;
     }
-    if (y === "") {
-      alert("Password is empty!!!");
-      return false;
+    if (!/\S+@\S+\.\S+/.test(email)) {
+        setError("Please enter a valid email address.");
+        return;
     }
 
-    // Submit form if validation passes
-    document.forms["loginForm"].submit();
-  }
+    setLoading(true);
+    const result = await login(email, password);
+    setLoading(false);
+
+    if (result.success) {
+      alert("Login Successful!");
+      navigate("/"); // Redirect to home or dashboard
+    } else {
+      setError(result.message || "Login failed. Please check your credentials.");
+    }
+  };
 
   return (
     <div className="login-container">
       <div className="logo-area">
         <div className="logo-img">
           <img
-            src="${process.env.PUBLIC_URL}/util/logo.jpeg"
+            src={process.env.PUBLIC_URL+"/util/logo.jpeg"}
             alt="Pawfect Haven Logo"
           />
         </div>
@@ -34,13 +52,16 @@ const Login = () => {
         </div>
       </div>
       <h1>Welcome Back!</h1>
-      <form id="loginForm" name="loginForm" onSubmit={validateLogin}>
-        <span className="outer-text">Username</span>
+      <form onSubmit={handleSubmit}>
+        <span className="outer-text">Email</span> {/* Changed Username to Email */}
         <input
           type="email"
           id="email"
-          name="fname"
+          name="email" // Changed from "fname" to "email"
           placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          disabled={loading}
         />
 
         <span className="outer-text">Password</span>
@@ -49,33 +70,40 @@ const Login = () => {
           id="password"
           name="pass"
           placeholder="Enter your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          disabled={loading}
         />
 
         <div className="forgot-password">
           <Link to="/forgot-password">Forgot Password?</Link>
         </div>
 
-        <button type="submit">Login</button>
-        <div className="social-login">
+        {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
+
+        <button type="submit" disabled={loading}>
+          {loading ? "Logging In..." : "Login"}
+        </button>
+        {/* <div className="social-login">
           <p>Or login with</p>
           <div className="icons">
             <button className="social-btn">
               <img
-                src="${process.env.PUBLIC_URL}/util/google-mail-icon-logo-isolated-on-transparent-background-free-vector.jpg"
+                src={process.env.PUBLIC_URL+"/util/google-mail-icon-logo-isolated-on-transparent-background-free-vector.jpg"}
                 alt="Google"
               />
             </button>
             <button className="social-btn">
-              <img src="${process.env.PUBLIC_URL}/util/facebook-logo.png" alt="Facebook" />
+              <img src={process.env.PUBLIC_URL+"/util/facebook-logo.png" }alt="Facebook" />
             </button>
             <button className="social-btn">
-              <img src="${process.env.PUBLIC_URL}/util/ig-logo.jpg" alt="Instagram" />
+              <img src={process.env.PUBLIC_URL+"/util/ig-logo.jpg" }alt="Instagram" />
             </button>
             <button className="social-btn">
-              <img src="${process.env.PUBLIC_URL}/util/x-logo.webp" alt="Twitter" />
+              <img src={process.env.PUBLIC_URL+"/util/x-logo.webp" }alt="Twitter" />
             </button>
           </div>
-        </div>
+        </div> */}
       </form>
 
       <p>

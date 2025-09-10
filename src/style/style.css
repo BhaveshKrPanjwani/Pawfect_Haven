@@ -91,7 +91,7 @@ header {
 /* Hero Section */
 
 .hero {
-    background: url('C:\Users\bhave\OneDrive\Desktop\html css\practice\React\practice\public\util\1200x0.jpg');
+    background: url('C:\practice - Copy\public\util\1200x0.jpg');
     background-repeat:  no-repeat;
     background-position: top center;
     background-size:cover ;
@@ -194,7 +194,7 @@ header {
     margin-top: 20px;
 }
 .left{
-    background: url('C:\Users\bhave\OneDrive\Desktop\html css\practice\React\practice\public\util\9b52f8ab775cf86eb51f1446f34e14da.jpg');
+    /* background: url('"C:\practice - Copy\public\util\9b52f8ab775cf86eb51f1446f34e14da.jpg"'); */
     height: 40vh;
     background-size: contain;
     background-repeat: no-repeat;
@@ -987,7 +987,14 @@ header {
     object-fit: cover; /* Maintain aspect ratio */
     border-radius: 10px;
   }
-  
+  .pet-list-display {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Creates two columns of equal width */
+  gap: 20px; /* Space between the pet cards */
+  padding: 20px; /* Add some padding around the grid */
+  justify-items: center; /* Center items horizontally within their grid cells */
+  align-items: start; /* Align items to the top of their grid cells */
+}
   .pet-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 columns */

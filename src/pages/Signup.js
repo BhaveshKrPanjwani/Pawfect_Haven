@@ -1,38 +1,52 @@
-import React from "react";
-import { Link } from "react-router-dom";
+// src/pages/Signup.js
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from '../context/AuthContext'; // Import useAuth
 
 const Signup = () => {
-  const validateForm = (e) => {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const { signup } = useAuth(); // Get the signup function from context
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Running validation...");
+    setError(""); // Clear previous errors
 
-    const fullName = document.getElementById("fullName").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
-
-    if (fullName === "") {
-      alert("Name must be filled out");
-      return;
-    }
-    if (email === "") {
-      alert("Email must be filled out");
-      return;
-    }
-    if (password === "") {
-      alert("Password must be filled out");
-      return;
-    }
-    if (confirmPassword === "") {
-      alert("Confirm password must be filled out");
+    // Client-side validation
+    if (!fullName || !email || !password || !confirmPassword) {
+      setError("All fields must be filled out");
       return;
     }
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      setError("Passwords do not match!");
       return;
     }
+    // Basic email format check (more robust regex can be used)
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+    if (password.length < 6) {
+        setError("Password must be at least 6 characters long.");
+        return;
+    }
 
-    alert("Sign Up Successful!"); // Replace with actual sign-up logic
+    setLoading(true);
+    const result = await signup(fullName, email, password);
+    setLoading(false);
+
+    if (result.success) {
+      alert("Sign Up Successful!");
+      navigate("/"); // Redirect to home or a dashboard page
+    } else {
+      setError(result.message || "Signup failed. Please try again.");
+    }
   };
 
   return (
@@ -51,18 +65,50 @@ const Signup = () => {
           </div>
         </div>
         <h1>Create an Account</h1>
-        <form id="signupForm" name="signupForm" onSubmit={validateForm}>
-          <input type="text" id="fullName" name="fname" placeholder="Full Name" />
-          <input type="email" id="email" name="email" placeholder="Enter your email" />
-          <input type="password" id="password" name="pass" placeholder="Create a password" />
-          <input type="password" id="confirmPassword" name="conf-pass" placeholder="Confirm password" />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            id="fullName"
+            placeholder="Full Name"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            disabled={loading}
+          />
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={loading}
+          />
+          <input
+            type="password"
+            id="password"
+            placeholder="Create a password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            disabled={loading}
+          />
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            disabled={loading}
+          />
 
           <div className="terms">
-            <input type="checkbox" id="terms" required />
+            <input type="checkbox" id="terms" required disabled={loading} />
             <label htmlFor="terms">I agree to the Terms and Conditions</label>
           </div>
 
-          <button type="submit">Sign Up</button>
+          {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
+
+          <button type="submit" disabled={loading}>
+            {loading ? "Signing Up..." : "Sign Up"}
+          </button>
 
           <p>
             Already have an account? <Link to="/login">Login</Link>

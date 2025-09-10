@@ -1,0 +1,180 @@
+/* src/style/AdoptionStoriesPage.css */
+
+.adoption-stories-page-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+.btn-back-stories {
+  background-color: #6c757d; /* Muted grey */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-back-stories:hover {
+  background-color: #5a6268;
+}
+
+.btn-back-stories svg {
+  margin-right: 8px;
+}
+
+.stories-page-title {
+  font-size: 2.8rem;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.stories-page-intro {
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.share-story-section, .all-stories-section {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 2rem;
+  color: #3498db;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.share-story-form .form-group {
+  margin-bottom: 20px;
+}
+
+.share-story-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #444;
+}
+
+.share-story-form input[type="text"],
+.share-story-form input[type="url"],
+.share-story-form textarea {
+  width: calc(100% - 20px);
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.share-story-form input[type="text"]:focus,
+.share-story-form input[type="url"]:focus,
+.share-story-form textarea:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.share-story-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.btn-submit-story {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background-color: #28a745; /* Green for submission */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-submit-story:hover:not(:disabled) {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+.btn-submit-story:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.stories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  padding: 20px 0;
+}
+
+.story-card {
+  background-color: #f0f8ff; /* Light blue background */
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.story-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+.story-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #eee;
+}
+
+.story-pet-name {
+  font-size: 1.6rem;
+  color: #3498db;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.story-author {
+  font-style: italic;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+.story-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* Placeholder image for new stories without an image URL */
+.story-card img[src*="placeholder-pet-story.jpg"] {
+  filter: grayscale(50%); /* Make placeholder less vibrant */
+}
